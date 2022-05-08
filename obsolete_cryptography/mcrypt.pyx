@@ -178,7 +178,7 @@ cdef _list_features(type_):
     cdef char **features = NULL
     cdef int nfeatures = 0
 
-    result = []
+    cdef set result = set()
     try:
         if type_ == 'algo':
             features = mcrypt_list_algorithms(NULL, &nfeatures)
@@ -186,7 +186,7 @@ cdef _list_features(type_):
             features = mcrypt_list_modes(NULL, &nfeatures)
         if features != NULL:
             for i in range(nfeatures):
-                result.append(features[i].decode('ascii'))
+                result.add(features[i].decode('ascii'))
     finally:
         if features != NULL:
             free(features)
@@ -197,3 +197,30 @@ cpdef list_algorithms():
 
 cpdef list_modes():
     return _list_features('mode')
+
+cpdef get_algorithm_props(algorithm):
+    '''
+    Return a dictionary that describes the properties of the selected algorithm.
+    '''
+    cdef bytes balgorithm = algorithm.encode('ascii')
+    cdef char *calgorithm = balgorithm
+
+    cdef int nsizes = 0
+    cdef int *csizes = NULL
+    cdef dict result = {}
+    cdef set sizes = set()
+
+    result['block_size'] = mcrypt_module_get_algo_block_size(calgorithm, NULL)
+    result['max_key_size'] = mcrypt_module_get_algo_key_size(calgorithm, NULL)
+
+    try:
+        csizes = mcrypt_module_get_algo_supported_key_sizes(calgorithm, NULL, &nsizes)
+        if csizes != NULL:
+            for i in range(nsizes):
+                sizes.add(csizes[i])
+        result['accepted_key_sizes'] = sizes
+    finally:
+        if csizes != NULL:
+            free(csizes)
+
+    return result

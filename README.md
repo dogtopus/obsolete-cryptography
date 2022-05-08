@@ -20,6 +20,6 @@ under the project directory. The wheel will be built under the `dist/` directory
 
 ## Notes on the design
 
-Under the hood, this library is essentially a Cython bidning to libmcrypt and mhash. Both libraries are included and are statically linked to the binding to simplify the building and installation process.
+Under the hood, this library is essentially a Cython binding to libmcrypt and mhash. Both libraries are included and are statically linked to the binding to simplify the building and installation process.
 
 The libmcrypt included is based on libmcrypt 2.5.8 and has patches that enable out-of-tree building (required by meson) and enable the original SAFER algorithm that was previously disabled due to a bug. The mhash library is just a stock mhash 0.9.9.9 for now.

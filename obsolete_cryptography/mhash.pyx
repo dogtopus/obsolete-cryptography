@@ -143,3 +143,15 @@ cdef class MHash:
         f.
         '''
         return self.digest().hex()
+
+
+cpdef list_algorithms():
+    cdef mutils_word32 max_algorithm_id = mhash_count()
+    cdef set result = set()
+    for algorithm_id in MHashAlgorithm:
+        if algorithm_id.value <= max_algorithm_id:
+            result.add(algorithm_id.name)
+    return result
+
+cpdef get_block_size(hashid algorithm_id):
+    return mhash_get_block_size(algorithm_id)
