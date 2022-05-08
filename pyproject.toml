@@ -3,6 +3,7 @@ build-backend = 'mesonpy'
 requires = [
   'meson-python',
   'cython',
+  'patchelf>=0.14.5.0',
 ]
 
 [project]

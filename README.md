@@ -10,7 +10,7 @@ Only tested on Linux.
 
 This project uses the new PEP-517 source tree format.
 
-To manually build the wheel, first make sure you have working C compiler, `make`, `libtool` and `patchelf` and the PEP-517 builder `build` is installed, then run
+To manually build the wheel, first make sure you have working C compiler, `make` and `libtool` (usually provided by the distro development package group like `build-essential`) and the PEP-517 builder `build` is installed, then run
 
 ```sh
 python -mbuild --wheel
