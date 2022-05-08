@@ -2,6 +2,7 @@
 build-backend = 'mesonpy'
 requires = [
   'meson-python',
+  'cython',
 ]
 
 [project]

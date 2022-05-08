@@ -111,7 +111,7 @@ serpent_la_LIBADD =
 am_serpent_la_OBJECTS = serpent.lo
 serpent_la_OBJECTS = $(am_serpent_la_OBJECTS)
 threeway_la_LIBADD =
-am_threeway_la_OBJECTS = 3-way.lo
+am_threeway_la_OBJECTS = threeway.lo
 threeway_la_OBJECTS = $(am_threeway_la_OBJECTS)
 tripledes_la_LIBADD =
 am_tripledes_la_OBJECTS = tripledes.lo
@@ -337,7 +337,7 @@ loki97_la_SOURCES = loki97.c
 loki97_la_LDFLAGS = -module -avoid-version -rpath $(pkglibdir)
 gost_la_SOURCES = gost.c
 gost_la_LDFLAGS = -module -avoid-version -rpath $(pkglibdir)
-threeway_la_SOURCES = 3-way.c
+threeway_la_SOURCES = threeway.c
 threeway_la_LDFLAGS = -module -avoid-version -rpath $(pkglibdir)
 blowfish_la_SOURCES = blowfish.c
 blowfish_la_LDFLAGS = -module -avoid-version -rpath $(pkglibdir) 
@@ -475,7 +475,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/3-way.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/threeway.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/arcfour.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/blowfish-compat.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/blowfish.Plo@am__quote@
