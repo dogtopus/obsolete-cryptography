@@ -1,0 +1,32 @@
+[build-system]
+build-backend = 'mesonpy'
+requires = [
+  'meson-python',
+]
+
+[project]
+name = 'obsolete-cryptography'
+version = '0.0.1'
+description = 'Toolbox for exploring various obsolete ciphers and hash algorithms. Based on mcrypt and mhash.'
+readme = 'README.md'
+license = { file = 'LICENSE.md' }
+keyword = ['cryptography', 'mcrypt', 'mhash', 'CTF']
+authors = [
+  { name = 'dogtopus' },
+]
+classifiers = [
+  'Development Status :: 2 - Pre-Alpha',
+  'Programming Language :: C',
+  'Programming Language :: Cython',
+  'Topic :: Security :: Cryptography',
+  'Topic :: Software Development :: Libraries :: Python Modules',
+]
+
+requires-python = '>=3.9'
+#dependencies = []
+
+#[project.optional-dependencies]
+#test = []
+
+[project.urls]
+repository = 'https://github.com/dogtopus/obsolete-cryptography'
