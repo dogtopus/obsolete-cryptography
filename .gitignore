@@ -103,6 +103,8 @@ downloads/
 eggs/
 .eggs/
 lib/
+# This is needed since mhash and mcrypt stores some of the code in lib/
+!/**/lib
 lib64/
 parts/
 sdist/
