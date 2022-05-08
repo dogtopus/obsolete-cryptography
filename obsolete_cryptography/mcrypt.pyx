@@ -174,7 +174,11 @@ cdef class MCrypt:
 
         return result
 
+
 cdef _list_features(type_):
+    '''
+    List features.
+    '''
     cdef char **features = NULL
     cdef int nfeatures = 0
 
@@ -193,9 +197,15 @@ cdef _list_features(type_):
     return result
 
 cpdef list_algorithms():
+    '''
+    List all ciphers supported by the library.
+    '''
     return _list_features('algo')
 
 cpdef list_modes():
+    '''
+    List all modes supported by the library.
+    '''
     return _list_features('mode')
 
 cpdef get_algorithm_props(algorithm):

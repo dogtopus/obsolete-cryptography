@@ -146,6 +146,9 @@ cdef class MHash:
 
 
 cpdef list_algorithms():
+    '''
+    List all hash algorithms supported by the library.
+    '''
     cdef mutils_word32 max_algorithm_id = mhash_count()
     cdef set result = set()
     for algorithm_id in MHashAlgorithm:
@@ -154,4 +157,7 @@ cpdef list_algorithms():
     return result
 
 cpdef get_block_size(hashid algorithm_id):
+    '''
+    Get hash block size by algorithm ID.
+    '''
     return mhash_get_block_size(algorithm_id)

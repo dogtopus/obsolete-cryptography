@@ -7,7 +7,7 @@ requires = [
 
 [project]
 name = 'obsolete-cryptography'
-version = '0.0.1'
+version = '0.1.0'
 description = 'Toolbox for exploring various obsolete ciphers and hash algorithms. Based on mcrypt and mhash.'
 readme = 'README.md'
 license = { file = 'LICENSE.md' }
@@ -16,7 +16,7 @@ authors = [
   { name = 'dogtopus' },
 ]
 classifiers = [
-  'Development Status :: 2 - Pre-Alpha',
+  'Development Status :: 3 - Alpha',
   'Programming Language :: C',
   'Programming Language :: Cython',
   'Topic :: Security :: Cryptography',
