@@ -72,7 +72,7 @@ class HashModule:
 
         self._digest_size = mhash.get_block_size(mhash.MHashAlgorithm[hash_name])
 
-    def new(self, initial_data: Union[bytes, bytearray, None]):
+    def new(self, initial_data: Union[bytes, bytearray, None] = None):
         return mhash.MHash(self._hash_name, initial_data)
 
     @property
