@@ -60,6 +60,7 @@ class HashModule:
     algorithms_available: Set[str] = mhash.list_algorithms()
 
     _hash_name: str
+    _hash_id: int
     _digest_size: int
 
     def __init__(self, hash_name: str):
@@ -69,11 +70,12 @@ class HashModule:
         if hash_name not in self.algorithms_available:
             raise ValueError(f'Invalid algorithm {hash_name}.')
         self._hash_name = hash_name
+        self._hash_id = mhash.MHashAlgorithm[hash_name]
 
-        self._digest_size = mhash.get_block_size(mhash.MHashAlgorithm[hash_name])
+        self._digest_size = mhash.get_block_size(self._hash_id)
 
     def new(self, initial_data: Union[bytes, bytearray, None] = None):
-        return mhash.MHash(self._hash_name, initial_data)
+        return mhash.MHash(self._hash_id, initial_data)
 
     @property
     def digest_size(self):
