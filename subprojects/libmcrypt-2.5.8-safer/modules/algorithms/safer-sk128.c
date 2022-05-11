@@ -88,7 +88,7 @@ WIN32DLL_DEFINE
 	unsigned int i, j;
 	unsigned char ka[SAFER_BLOCK_LEN + 1];
 	unsigned char kb[SAFER_BLOCK_LEN + 1];
-	int nof_rounds = SAFER_SK64_DEFAULT_NOF_ROUNDS;
+	int nof_rounds = SAFER_SK128_DEFAULT_NOF_ROUNDS;
 	int strengthened = 1;
 	unsigned char *userkey_1 = &userkey[0];
 	unsigned char *userkey_2 = &userkey[8];
