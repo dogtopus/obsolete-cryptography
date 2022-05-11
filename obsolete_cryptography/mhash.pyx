@@ -86,7 +86,7 @@ cdef class MHash:
     def __dealloc__(self):
         self._close()
 
-    cpdef _close(self):
+    cdef _close(self):
         '''
         Destroy the context.
         '''
