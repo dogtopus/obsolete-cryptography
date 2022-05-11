@@ -50,6 +50,15 @@ cdef class MCrypt:
             # needed here.
             raise ValueError('Invalid algorithm and method combination.')
 
+        # Both of these needs to be in block mode to be in block mode.
+        cdef bint is_block_algo = mcrypt_enc_is_block_algorithm(self.mcrypt_ctx)
+        cdef bint is_block_mode = mcrypt_enc_is_block_mode(self.mcrypt_ctx)
+
+        # Abort if using "stream" mode on block ciphers.
+        cdef bint is_null_stream_mode = mcrypt_enc_is_block_algorithm_mode(self.mcrypt_ctx)
+        if (not is_block_algo) and is_null_stream_mode:
+            raise ValueError('Mode "stream" cannot be used with a block cipher.')
+
         cdef:
             int size_keylen = 0
             int *c_keylen = mcrypt_enc_get_supported_key_sizes(self.mcrypt_ctx, &size_keylen)
@@ -83,7 +92,7 @@ cdef class MCrypt:
         self.mode = mode
         self.IV = iv
 
-        self.is_block = mcrypt_enc_is_block_algorithm_mode(self.mcrypt_ctx)
+        self.is_block = is_block_algo and is_block_mode
         self.block_size = mcrypt_enc_get_block_size(self.mcrypt_ctx)
 
     def __dealloc__(self):
