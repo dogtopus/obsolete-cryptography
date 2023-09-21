@@ -6,7 +6,7 @@ project(
 )
 
 py_mod = import('python')
-py3 = py_mod.find_installation('python3'
+py3 = py_mod.find_installation('python3',
     pure: false,
 )
 py3_dep = py3.dependency()
