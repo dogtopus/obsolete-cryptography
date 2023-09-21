@@ -2,11 +2,13 @@ project(
     'obsolete-cryptography',
     ['c', 'cython'],
     version : '0.1.0',
-    meson_version : '>=0.59.0',
+    meson_version : '>=0.64.0',
 )
 
 py_mod = import('python')
-py3 = py_mod.find_installation('python3')
+py3 = py_mod.find_installation('python3'
+    pure: false,
+)
 py3_dep = py3.dependency()
 
 mcrypt_subp = subproject('libmcrypt-2.5.8-safer')
