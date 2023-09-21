@@ -8,7 +8,7 @@ requires = [
 
 [project]
 name = 'obsolete-cryptography'
-version = '0.1.0'
+version = '0.2.1'
 description = 'Toolbox for exploring various obsolete ciphers and hash algorithms. Based on mcrypt and mhash.'
 readme = 'README.md'
 license = { file = 'LICENSE.md' }
