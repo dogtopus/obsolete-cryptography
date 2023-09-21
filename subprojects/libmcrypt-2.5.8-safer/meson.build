@@ -3,7 +3,7 @@ project('mcrypt', 'c',
     meson_version : '>=0.56.0',
 )
 
-ac_mod = import('unstable_external_project')
+ac_mod = import('unstable-external_project')
 
 p = ac_mod.add_project(
     'configure',
