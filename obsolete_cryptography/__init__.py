@@ -27,7 +27,7 @@ class CipherModule:
 
     def __init__(self, cipher_name: str):
         if cipher_name not in self.algorithms_available:
-            raise ValueError(f'Invalid algorithm {hash_name}.')
+            raise ValueError(f'Invalid algorithm {cipher_name}.')
         self._cipher_name = cipher_name
 
         self._properties = mcrypt.get_algorithm_props(cipher_name)
@@ -37,7 +37,11 @@ class CipherModule:
         else:
             self._key_size = self._properties['max_key_size']
 
-    def new(self, key: Union[bytes, bytearray], mode: str, IV: Union[bytes, bytearray, None] = None, **kwargs) -> mcrypt.MCrypt:
+    def new(self,
+            key: Union[bytes, bytearray],
+            mode: str,
+            IV: Union[bytes, bytearray, None] = None,
+            **kwargs) -> mcrypt.MCrypt:
         return mcrypt.MCrypt(self._cipher_name, key, mode, IV)
 
     @property
@@ -60,7 +64,7 @@ class HashModule:
     algorithms_available: Set[str] = mhash.list_algorithms()
 
     _hash_name: str
-    _hash_id: int
+    _hash_id: mhash.MHashAlgorithm
     _digest_size: int
 
     def __init__(self, hash_name: str):
@@ -75,7 +79,7 @@ class HashModule:
         self._digest_size = mhash.get_block_size(self._hash_id)
 
     def new(self, initial_data: Union[bytes, bytearray, None] = None):
-        return mhash.MHash(self._hash_id, initial_data)
+        return mhash.MHash(self._hash_id.value, initial_data)
 
     @property
     def digest_size(self):

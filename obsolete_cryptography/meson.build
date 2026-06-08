@@ -25,6 +25,9 @@ py3.extension_module(
 py3.install_sources(
     [
         '__init__.py',
+        'mcrypt.pyi',
+        'mhash.pyi',
+        'py.typed',
     ],
     subdir : 'obsolete_cryptography',
 )
