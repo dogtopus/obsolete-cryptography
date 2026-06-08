@@ -13,6 +13,7 @@ p = ac_mod.add_project(
         '--includedir=@PREFIX@/@INCLUDEDIR@',
         '--enable-static',
         '--disable-shared',
+        '--disable-dynamic-loading',
     ],
     env : [
         'CFLAGS=-fPIC',

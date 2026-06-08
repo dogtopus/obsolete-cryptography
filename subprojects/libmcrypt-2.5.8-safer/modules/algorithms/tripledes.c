@@ -36,8 +36,11 @@
 
 /* #define	NULL	0 */
 
-static void permute(), perminit(), spinit();
-static word32 f();
+static void permute(char *inblock, char perm[16][16][8], char *outblock);
+static void perminit(char perm[16][16][8], char p[64]);
+static void spinit(TRIPLEDES_KEY * key, int pos);
+static word32 f(TRIPLEDES_KEY * key, int pos, register word32 r,
+		register char *subkey);
 
 
 /* Tables defined in the Data Encryption Standard documents */
@@ -199,8 +202,8 @@ static int _mcrypt_desinit(TRIPLEDES_KEY * key)
 	spinit(key, 0);
 	spinit(key, 1);
 	spinit(key, 2);
-	perminit(&key->iperm, ip);
-	perminit(&key->fperm, fp);
+	perminit(key->iperm, ip);
+	perminit(key->fperm, fp);
 
 
 	return 0;
@@ -693,7 +696,7 @@ static void perminit(char perm[16][16][8], char p[64])
 	int i, m;
 
 	/* Clear the permutation array */
-	Bzero((char *) perm, 16 * 16 * 8);
+	Bzero(perm, 16 * 16 * 8);
 
 	for (i = 0; i < 16; i++)	/* each input nibble position */
 		for (j = 0; j < 16; j++)	/* each possible input nibble */

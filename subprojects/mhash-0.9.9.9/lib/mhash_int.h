@@ -36,9 +36,9 @@ void *hmac_mhash_end(MHASH thread);
 
 /* Key generation functions */
 
-#define EMPTY_PROTOTYPES 1
+/* #define EMPTY_PROTOTYPES 1 */
 
-#if defined(EMPTY_PROTOTYPES)
+#if !defined(PROTOTYPES)
 
 mutils_error mhash_keygen();
 mutils_error mhash_keygen_ext();

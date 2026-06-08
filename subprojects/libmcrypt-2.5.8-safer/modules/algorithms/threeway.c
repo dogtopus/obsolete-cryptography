@@ -69,7 +69,9 @@ void mu(word32 * a)
 	a[2] = b[2];
 }
 
-void gamma(word32 * a)
+/* gamma() is a function seen in various implementations of libm.
+   Avoid that name. */
+void gamma_(word32 * a)
 {				/* the nonlinear step */
 	word32 b[3];
 
@@ -130,7 +132,7 @@ void rho(word32 * a)
 {				/* the round function       */
 	theta(a);
 	pi_1(a);
-	gamma(a);
+	gamma_(a);
 	pi_2(a);
 }
 

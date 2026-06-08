@@ -35,9 +35,12 @@
 
 /* #define	NULL	0 */
 
-static void permute_ip(), permute_fp(), perminit_ip(), spinit(),
-perminit_fp();
-static word32 f();
+static void permute_ip(char *inblock, DES_KEY * key, char *outblock);
+static void permute_fp(char *inblock, DES_KEY * key, char *outblock);
+static void perminit_ip(DES_KEY * key);
+static void spinit(DES_KEY * key);
+static void perminit_fp(DES_KEY * key);
+static word32 f(DES_KEY * key, register word32 r, register char *subkey);
 
 
 /* Tables defined in the Data Encryption Standard documents */
