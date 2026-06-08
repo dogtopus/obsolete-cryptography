@@ -8,6 +8,7 @@ py3.extension_module(
     ],
     install : true,
     subdir : 'obsolete_cryptography',
+    limited_api : '3.10',
 )
 
 py3.extension_module(
@@ -19,9 +20,10 @@ py3.extension_module(
     ],
     install : true,
     subdir : 'obsolete_cryptography',
+    limited_api : '3.10',
 )
 
-# Pure Python modules
+# Pure Python modules and type stubs
 py3.install_sources(
     [
         '__init__.py',

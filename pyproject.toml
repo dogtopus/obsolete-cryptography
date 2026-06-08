@@ -12,7 +12,7 @@ version = '0.2.2'
 description = 'Toolbox for exploring various obsolete ciphers and hash algorithms. Based on mcrypt and mhash.'
 readme = 'README.md'
 license = { file = 'LICENSE.md' }
-keyword = ['cryptography', 'mcrypt', 'mhash', 'CTF']
+keywords = ['cryptography', 'mcrypt', 'mhash', 'CTF']
 authors = [
   { name = 'dogtopus' },
 ]
@@ -24,7 +24,7 @@ classifiers = [
   'Topic :: Software Development :: Libraries :: Python Modules',
 ]
 
-requires-python = '>=3.8'
+requires-python = '>=3.10'
 #dependencies = []
 
 #[project.optional-dependencies]
@@ -33,5 +33,18 @@ requires-python = '>=3.8'
 [project.urls]
 repository = 'https://github.com/dogtopus/obsolete-cryptography'
 
+[tool.meson-python]
+limited-api = true
+
 [tool.meson-python.args]
+# We don't want to install the static libraries
 install = ['--skip-subprojects']
+
+[tool.cibuildwheel]
+# CPython 3.10 ABI3 + all CPython free-threading
+build = ["cp310-*", "cp3??t-*"]
+
+# Free-threading is not compatible with ABI3. Notify meson that we don't want ABI3 support.
+[[tool.cibuildwheel.overrides]]
+select = "cp3??t-*"
+config-settings = { setup-args = ["-Dpython.allow_limited_api=false"]}

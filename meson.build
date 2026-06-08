@@ -2,7 +2,7 @@ project(
     'obsolete-cryptography',
     ['c', 'cython'],
     version : '0.2.1',
-    meson_version : '>=0.64.0',
+    meson_version : '>=1.3.0',
 )
 
 py_mod = import('python')
