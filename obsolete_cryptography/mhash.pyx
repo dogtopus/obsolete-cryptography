@@ -104,9 +104,9 @@ cdef class MHash:
 
     cpdef digest(self):
         '''
-        Return the hash value of this hashing object as a string containing
-        8-bit data. The object is not altered in any way by this function;
-        you can continue updating the object after calling this function.
+        Return the hash value of this hashing object as a byte string.
+        The object is not altered in any way by this function; you can continue
+        updating the object after calling this function.
         '''
         # PEP-247 requires the digest() method to not close the context. However
         # mhash does not support such operation. Therefore we create a copy of

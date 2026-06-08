@@ -54,9 +54,9 @@ class MHash:
         ...
     def digest(self) -> bytes:
         '''
-        Return the hash value of this hashing object as a string containing
-        8-bit data. The object is not altered in any way by this function;
-        you can continue updating the object after calling this function.
+        Return the hash value of this hashing object as a byte string.
+        The object is not altered in any way by this function; you can continue
+        updating the object after calling this function.
         '''
         ...
     def hexdigest(self) -> str:
