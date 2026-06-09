@@ -71,6 +71,8 @@ if not c.has_type('size_t', prefix : '#include <sys/types.h>')
   cfg.set('size_t', 'unsigned int')
 endif
 
+# TODO: win32 flag
+
 mhash_config = configure_file(
   output: 'mhash_config.h',
   configuration: cfg,

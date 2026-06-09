@@ -1,23 +1,21 @@
 project('mcrypt', 'c',
     version : '2.5.8',
-    meson_version : '>=0.56.0',
+    meson_version : '>=1.3.0',
 )
 
-ac_mod = import('unstable-external_project')
+c = meson.get_compiler('c')
+python = import('python').find_installation('python3')
 
-p = ac_mod.add_project(
-    'configure',
-    configure_options : [
-        '--prefix=@PREFIX@',
-        '--libdir=@PREFIX@/@LIBDIR@',
-        '--includedir=@PREFIX@/@INCLUDEDIR@',
-        '--enable-static',
-        '--disable-shared',
-        '--disable-dynamic-loading',
-    ],
-    env : [
-        'CFLAGS=-fPIC',
-    ],
+add_project_arguments('-DHAVE_CONFIG_H', language : 'c')
+add_project_arguments('-DLIBDIR=""', language : 'c')
+
+global_inc = include_directories(['include', 'lib', '.'])
+
+subdir('include')
+subdir('modules')
+subdir('lib')
+
+mcrypt_dep = declare_dependency(
+    include_directories : global_inc,
+    link_with : mcrypt_lib,
 )
-
-mcrypt_dep = p.dependency('mcrypt')
