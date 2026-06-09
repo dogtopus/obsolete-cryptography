@@ -1,5 +1,5 @@
 #if !defined(__LIBDEFS_H)
-#define LIBDEFS_H
+#define __LIBDEFS_H
 
 /*
    {{{ includes 

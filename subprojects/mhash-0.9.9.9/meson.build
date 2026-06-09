@@ -1,22 +1,16 @@
 project('mhash', 'c',
-    version : '0.9.9.9',
-    meson_version : '>=0.56.0',
+  version : '0.9.9.9',
+  meson_version : '>=1.3.0',
 )
 
-ac_mod = import('unstable-external_project')
+c = meson.get_compiler('c')
 
-p = ac_mod.add_project(
-    'configure',
-    configure_options : [
-        '--prefix=@PREFIX@',
-        '--libdir=@PREFIX@/@LIBDIR@',
-        '--includedir=@PREFIX@/@INCLUDEDIR@',
-        '--enable-static',
-        '--disable-shared',
-    ],
-    env : [
-        'CFLAGS=-fPIC',
-    ],
+global_inc = include_directories('include')
+
+subdir('include')
+subdir('lib')
+
+mhash_dep = declare_dependency(
+  include_directories : global_inc,
+  link_with : mhash_lib,
 )
-
-mhash_dep = p.dependency('mhash')
