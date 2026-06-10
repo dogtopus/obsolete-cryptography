@@ -27,7 +27,7 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v4.0.0
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           # TODO multiplatform
           #name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
@@ -43,7 +43,7 @@ jobs:
       - name: Build sdist
         run: pipx run build --sdist
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: source
           path: dist/*.tar.gz
