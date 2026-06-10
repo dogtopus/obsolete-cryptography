@@ -1,27 +1,27 @@
 modules_algorithms_src = [
-  'algorithms/arcfour.c',
-  'algorithms/blowfish.c',
-  'algorithms/blowfish-compat.c',
-  'algorithms/cast-128.c',
-  'algorithms/cast-256.c',
-  'algorithms/des.c',
-  'algorithms/enigma.c',
-  'algorithms/gost.c',
-  'algorithms/loki97.c',
-  'algorithms/panama.c',
-  'algorithms/rc2.c',
-  'algorithms/rijndael-128.c',
-  'algorithms/rijndael-192.c',
-  'algorithms/rijndael-256.c',
-  'algorithms/saferplus.c',
-  'algorithms/safer-sk128.c',
-  'algorithms/safer-sk64.c',
-  'algorithms/serpent.c',
   'algorithms/threeway.c',
-  'algorithms/tripledes.c',
+  'algorithms/cast-128.c',
+  'algorithms/gost.c',
+  'algorithms/rijndael-128.c',
+  'algorithms/safer-sk64.c',
   'algorithms/twofish.c',
+  'algorithms/arcfour.c',
+  'algorithms/cast-256.c',
+  'algorithms/loki97.c',
+  'algorithms/rijndael-192.c',
+  'algorithms/saferplus.c',
   'algorithms/wake.c',
+  'algorithms/blowfish-compat.c',
+  'algorithms/des.c',
+  'algorithms/rijndael-256.c',
+  'algorithms/serpent.c',
   'algorithms/xtea.c',
+  'algorithms/blowfish.c',
+  'algorithms/enigma.c',
+  # 'algorithms/panama.c',
+  'algorithms/rc2.c',
+  'algorithms/safer-sk128.c',
+  'algorithms/tripledes.c',
 ]
 
 modules_modes_src = [
@@ -37,9 +37,9 @@ modules_modes_src = [
 
 symb_src = custom_target(
   'symb',
-  command: [python, '@CURRENT_SOURCE_DIR@/gen_symb_table.py', '@OUTPUT@', '@INPUT@'],
+  command: [python, '@INPUT@', '-o', '@OUTPUT@'],
   output: 'symb.c',
-  input: [modules_modes_src, modules_algorithms_src],
+  input: ['gen_symb_table.py', modules_modes_src, modules_algorithms_src],
 )
 
 mcrypt_modules_lib = static_library(
