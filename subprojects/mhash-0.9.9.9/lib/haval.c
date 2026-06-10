@@ -751,7 +751,7 @@ mutils_error havalFinal (havalContext *hcp, mutils_word8 *digest)
 	}
 	if (digest == NULL)
 	{
-	  return(-MUTILS_INVALID_OUTPUT_BUFFER); /* bad digest buffer */
+	  goto cleanup; /* skip digest and only wipe context */
 	}
 
 /*	assert (hcp->occupied < 128);  invariant */
@@ -910,6 +910,7 @@ mutils_error havalFinal (havalContext *hcp, mutils_word8 *digest)
 		break;
 	}
 
+cleanup:
 	/* destroy sensitive information: */
 	mutils_bzero (hcp, sizeof (havalContext));
 	return(MUTILS_OK); /* OK */

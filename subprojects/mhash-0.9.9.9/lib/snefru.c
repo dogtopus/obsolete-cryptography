@@ -859,6 +859,10 @@ static void snefru_digest(__const struct snefru_ctx *ctx, mutils_word8 *digest, 
 {
 	mutils_word32 i;
 
+	if (digest == NULL) {
+		return;
+	}
+
 	for (i = 0; i < len; i++, digest += 4)
 	{
 		*(mutils_word32 *)digest = mutils_bend2sys32(ctx->hash[i]);

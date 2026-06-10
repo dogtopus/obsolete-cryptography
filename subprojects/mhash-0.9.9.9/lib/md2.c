@@ -145,7 +145,10 @@ md2_digest(struct md2_ctx *ctx, mutils_word8 *digest)
 	md2_transform(ctx, ctx->buffer);
   
 	md2_transform(ctx, ctx->C);
-	mutils_memcpy(digest, ctx->X, MD2_DIGEST_SIZE);
+	if (digest != NULL) {
+		mutils_memcpy(digest, ctx->X, MD2_DIGEST_SIZE);
+	}
+
 	md2_init(ctx);
 }
 

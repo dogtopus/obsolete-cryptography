@@ -969,7 +969,12 @@ void whirlpool_final(struct whirlpool_ctx *ctx)
 void whirlpool_digest(__const struct whirlpool_ctx * ctx,
                     mutils_word8 * digest)
 {
-   mutils_word32 i;
+    mutils_word32 i;
+
+    if (digest == NULL) {
+      return;
+    }
+
     /*
      * return the completed message digest:
      */
