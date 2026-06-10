@@ -1,7 +1,7 @@
 project(
     'obsolete-cryptography',
     ['c', 'cython'],
-    version : '0.2.1',
+    version : '0.3.0',
     meson_version : '>=1.3.0',
 )
 
