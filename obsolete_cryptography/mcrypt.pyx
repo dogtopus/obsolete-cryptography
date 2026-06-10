@@ -58,6 +58,7 @@ cdef class MCrypt:
         cdef:
             int size_keylen = 0
             int *c_keylen = mcrypt_enc_get_supported_key_sizes(self.mcrypt_ctx, &size_keylen)
+            int c_maxkeylen = mcrypt_enc_get_key_size(self.mcrypt_ctx)
             int ivlen = mcrypt_enc_get_iv_size(self.mcrypt_ctx)
 
         keylen = []
@@ -66,7 +67,13 @@ cdef class MCrypt:
             keylen.append(c_keylen[i])
 
         if len(key) not in keylen:
-            raise ValueError(f'Invalid key length. Valid lengths are: {keylen}.')
+            if len(keylen) != 0:
+                # We broke algorithm's key length constraint.
+                raise ValueError(f'Invalid key length. Valid lengths are: {keylen}.')
+            elif len(key) > c_maxkeylen:
+                # Algorithm does not have a constraint, but we're exceeding
+                # the maximum key length allowed by the algorithm.
+                raise ValueError(f'Key length exceed maximum. Max length is: {c_maxkeylen}.')
 
         if iv is not None and len(iv) != ivlen:
             raise ValueError(f'IV must be {ivlen} bytes long.')
@@ -215,7 +222,18 @@ cpdef list_modes():
 
 cpdef get_algorithm_props(algorithm):
     '''
-    Return a dictionary that describes the properties of the selected algorithm.
+    Return a dictionary that describes the properties of the selected
+    algorithm. The property dictionary contains three keys as follows:
+
+    - `block_size`: The size of block in bytes. For stream ciphers this
+      should be 1.
+    - `max_key_size`: Maximum size of the key stream in bytes.
+    - `accepted_key_sizes`: A `set` of accepted key stream sizes in bytes. This
+      is populated when an algorithm supports one or multiple EXACT key sizes
+      (e.g. rijndael supports maximum key stream size of 32, but the key stream
+      size must be either 16, 24 or 32). If this is not the case i.e. the
+      algorithm supports any key stream size from 1 to `max_key_size`, this may
+      be empty.
     '''
     cdef bytes balgorithm = algorithm.encode('ascii')
     cdef char *calgorithm = balgorithm

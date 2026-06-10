@@ -41,9 +41,12 @@ class MHashAlgorithm(IntEnum):
     TIGER = auto()
 
 class MHash:
-    digest_size: int
-    algorithm: str
-    algorithm_id: int
+    @property
+    def digest_size(self) -> int: ...
+    @property
+    def algorithm(self) -> str: ...
+    @property
+    def algorithm_id(self) -> int: ...
 
     def __init__(self, algorithm_id: int, initial_data: bytes | bytearray | None = None) -> None: ...
     def update(self, data: bytes | bytearray) -> None:

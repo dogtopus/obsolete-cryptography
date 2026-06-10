@@ -7,9 +7,16 @@ from . import mhash
 
 
 class CipherProperty(TypedDict):
+    '''
+    See `obsolete_cryptography.mcrypt.get_algorithm_props` for detailed
+    documentation of fields.
+    '''
     block_size: int
+    'The size of block in bytes.'
     max_key_size: int
+    'Maximum size of the key stream in bytes.'
     accepted_key_sizes: Set[int]
+    'A `set` of accepted key stream sizes in bytes.'
 
 
 class CipherModule:
@@ -32,6 +39,8 @@ class CipherModule:
 
         self._properties = mcrypt.get_algorithm_props(cipher_name)
         self._block_size = self._properties['block_size']
+        # Check if only one key size is supported by this cipher. If so, set
+        # the key_size field.
         if len(self._properties['accepted_key_sizes']) != 1:
             self._key_size = None
         else:
@@ -42,18 +51,33 @@ class CipherModule:
             mode: str,
             IV: Union[bytes, bytearray, None] = None,
             **kwargs) -> mcrypt.MCrypt:
+        '''
+        Create a new MCrypt instance based on the specified configuration.
+        '''
         return mcrypt.MCrypt(self._cipher_name, key, mode, IV)
 
     @property
     def properties(self) -> CipherProperty:
+        '''
+        Properties of the selected cipher algorithm.
+        '''
         return self._properties
 
     @property
     def block_size(self) -> int:
+        '''
+        Block size of the block cipher in number of bytes, or 1 if the cipher
+        is a stream cipher.
+        '''
         return self._block_size
 
     @property
     def key_size(self) -> Optional[int]:
+        '''
+        If only one key size is supported by the selected cipher, this will be
+        that size, or it will be `None`. In case this value is `None`, the user
+        shall refer to `properties` for supported key sizes.
+        '''
         return self._key_size
 
 
@@ -79,8 +103,14 @@ class HashModule:
         self._digest_size = mhash.get_block_size(self._hash_id)
 
     def new(self, initial_data: Union[bytes, bytearray, None] = None):
+        '''
+        Create a new MHash instance based on the specified configuration.
+        '''
         return mhash.MHash(self._hash_id.value, initial_data)
 
     @property
     def digest_size(self):
+        '''
+        Length of the digest in number of bytes.
+        '''
         return self._digest_size
